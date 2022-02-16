@@ -1,7 +1,14 @@
 #include<bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
-string command;
+string command, table, TABLENAME, str;
+
+/* CREATE TABLE table (
+   ID int,
+   NAME varchar,
+   ROLL int ) ;
+*/
 
 void create_table()
 {
