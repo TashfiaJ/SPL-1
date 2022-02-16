@@ -9,13 +9,12 @@ string command, table, TABLENAME, str;
    NAME varchar,
    ROLL int ) ;
 */
-
 void create_table()
 {
     cin >> table >> TABLENAME >> str;
     ofstream database;
-    database.open("My_database.txt");
-    database << TABLENAME << endl;
+    database.open("My_database.txt", ios::app);
+    database << endl << TABLENAME << endl;
 
     if(str=="(")
     {
@@ -30,7 +29,6 @@ void create_table()
     }
     database.close();
 }
-
 int main ()
 {
     cout << "Enter the command: ";
