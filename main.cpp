@@ -10,7 +10,7 @@ void create_table()
 
 int main ()
 {
-    cout << "Enter command: ";
+    cout << "Enter the command: ";
     cin >> command;
 
     if(command == "CREATE")
