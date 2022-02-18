@@ -1,8 +1,7 @@
 #include<bits/stdc++.h>
 #include<fstream>
 using namespace std;
-
-string command, table, TABLENAME, str;
+#define ll long long
 
 struct ARRAY {
     string table_name;
@@ -10,17 +9,21 @@ struct ARRAY {
     ll column;
     };
 
-
 /* CREATE TABLE table (
    ID int,
    NAME varchar,
    ROLL int ) ;
 */
 void create_table()
-{
+{   
+    string command, table, TABLENAME, str;
+    
     cin >> table >> TABLENAME >> str;
+    
     ofstream database;
+    
     database.open("My_database.txt", ios::app);
+    
     database << endl << TABLENAME << endl;
 
     if(str=="(")
@@ -28,12 +31,17 @@ void create_table()
         while(str!=")")
         {
             string var_type;
+            
             cin >> str >> var_type;
+            
             if(str!=")")
+                
             database << str << "\t";
         }
+        
         cout << endl;
     }
+    
     database.close();
 }
 
@@ -65,7 +73,7 @@ void insert_table ()
     //if there is no table then show this message
     if ( total_table == 0)
     {
-        cout << " Can't insert the values as there is no table. First create a table\n";
+        cout << " Can't insert the values as there is no table. First create a table.\n";
     }
     
     else
@@ -86,10 +94,42 @@ void insert_table ()
             ifile >> tableinfo[i].row;
             ifile >> tableinfo[i].column;
         }
+        
+        ifile.close();
+        
+        remove("FileInformation.txt");
+        
+        ofstream ofile;
+        
+        ofile.open("FileInformation.txt", ios::app);
+        
+        ofile << total_table << '\n';
+        
+        for(ll i=0; i<total_table; i++)
+        {   
+            if(tableinfo[i].table_name == tablename)
+            {
+                tableinfo[i].row == tableinfo[i].row + 1;
+                ofile << tableinfo[i].table_name << " ";
+                ofile << tableinfo[i].row << " ";
+                ofile << tableinfo[i].column << " ";
+                ofile << endl;
+                
+            }
+            else
+            {
+                ofile << tableinfo[i].table_name << " ";
+                ofile << tableinfo[i].row << " ";
+                ofile << tableinfo[i].column << " ";
+                ofile << endl;
+            }
+        }
+        
+        ofile.close();
+        
     }
     
 }
-
 int main ()
 {
     cout << "Enter the command: ";
@@ -99,6 +139,7 @@ int main ()
     {
         create_table();
     }
+    
     else if (command == "INSERT")
     {
         insert_table();
