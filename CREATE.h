@@ -28,7 +28,7 @@ void create_table()
 
             cin >> str >> var_type;
 
-            if(str!=")")
+            if ( str!=")" )
 
             database << str << "\t";
         }
