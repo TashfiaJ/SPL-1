@@ -1,9 +1,11 @@
 #include<bits/stdc++.h>
+#include "create.h"
+#include "insert.h"
 #include<fstream>
 using namespace std;
 #define ll long long
 
-struct ARRAY {
+/*struct ARRAY {
     string table_name;
     ll row;
     ll column;
@@ -20,14 +22,14 @@ void column_name (ll x)
 void field_value(ll x)
 {
     FIELD = new string [x];
-}
+}*/
 
 /* CREATE TABLE table (
    ID int,
    NAME varchar,
    ROLL int ) ;
 */
-void create_table()
+/*void create_table()
 {
     string command, table, TABLENAME, str;
 
@@ -56,12 +58,12 @@ void create_table()
     }
 
     database.close();
-}
+}*/
 
 /* INSERT INTO table name
    values ( 1, Tash, 1223 ) ;
 */
-void insert_table ()
+/*void insert_table ()
 {
     string into, tablename, value, str;
 
@@ -238,7 +240,7 @@ void insert_table ()
 
     }
 
-}
+}*/
 
 int main ()
 {
@@ -248,11 +250,13 @@ int main ()
 
     if(command == "CREATE")
     {
-        create_table();
+        createtable();
     }
 
     else if (command == "INSERT")
     {
         insert_table();
     }
+
+    else cout << "Command Invalid!\n";
 }
