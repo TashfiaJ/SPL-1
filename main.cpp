@@ -8,6 +8,19 @@ struct ARRAY {
     ll row;
     ll column;
     };
+    
+string *HEADER;
+string *FIELD;
+
+void column_name (ll x)
+{
+    HEADER = new string [x];
+}
+
+void field_value(ll x)
+{
+    FIELD = new string [x];
+}
 
 /* CREATE TABLE table (
    ID int,
@@ -109,9 +122,8 @@ void insert_table ()
         {   
             if(tableinfo[i].table_name == tablename)
             {
-                tableinfo[i].row == tableinfo[i].row + 1;
                 ofile << tableinfo[i].table_name << " ";
-                ofile << tableinfo[i].row << " ";
+                ofile << tableinfo[i].row + 1 << " ";
                 ofile << tableinfo[i].column << " ";
                 ofile << endl;
                 
@@ -127,9 +139,107 @@ void insert_table ()
         
         ofile.close();
         
+        ll sum_of_rows = 0;
+        
+        for (ll i=0; i<total_table; i++)
+        {
+            sum_of_rows += tableinfo[i].row;
+        }
+        
+        field_value (sum_of_rows);
+        
+        column_name (total_table);
+        
+        //storing the information from database
+        ifstream ofile;
+        
+        ifile.open("My_database.txt", ios::in );
+        
+        string str, table;
+        
+        ll index = 0; 
+        
+        for(ll i=0; i<total_table; i++)
+        {
+            ifile >> table;
+            getline(ifile, str);
+            getline(ifile, str);
+            getline(ifile, HEADER[i]);
+            getline(ifile, str);
+            
+            ll Iindex = 0;
+            
+            while (Iindex != tableinfo[i].row)
+            {
+                geline(ifile, field_value[index]);
+                index++;
+                Iindex++;
+            }
+            
+            if (i != total_table-1 )
+            {
+                getline(ifile, str);
+            }
+        }
+        
+        ifile.close();
+        
+        remove("My_database.txt");
+        
+        ofstream ofile;
+        
+        ofile.open( "My_database.txt", ios::app );
+        
+        index = 0; 
+        
+        for(ll i=0; i<total_table; i++)
+        {
+            ofile << table << endl << endl;
+            ofile << HEADER[i] << endl << endl;
+            
+             Iindex = 0;
+            
+            while (Iindex != tableinfo[i].row)
+            {
+                ifile >> field_value[index] << endl;
+                index++;
+                Iindex++;
+            }
+            
+            if ( table == tablename )
+            {
+               if(str=="(")
+                {
+                    while(str!=")")
+                        {
+                            string comma;
+            
+                            cin >> str >> comma;
+            
+                            if(str!=")")
+                
+                                database << str << "\t";
+                            }
+        
+                            cout << endl;
+                } 
+            }
+            if (i != total_table-1 )
+            {
+                ofile << endl;
+            }
+        }
+        
+        ofile.close();
+        
+        cout << "Row inserted in" << tablename <<" successfully!" << endl << endl; 
+        
+        
+        
     }
     
 }
+
 int main ()
 {
     cout << "Enter the command: ";
