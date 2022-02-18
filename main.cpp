@@ -58,8 +58,8 @@ void insert_table ()
     cin >> value;
     cin >> str;
     
-    // table name, total row, column row store from file
-    // first need to store total table no so open the file
+    // store table name, total row, total column from file
+    // first need to store total table no 
     ifstream ifile;
     
     ifile.open("FileInformation.txt", ios::in);
