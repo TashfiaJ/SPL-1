@@ -8,33 +8,49 @@ using namespace std;
    NAME varchar,
    ROLL int ) ;
 */
-void create_table()
+
+void createtable(string command, string table, string TABLENAME, string str)
 {
-    string command, table, TABLENAME, str;
-
-    cin >> table >> TABLENAME >> str;
-
-    ofstream database;
-
-    database.open("My_database.txt", ios::app);
-
-    database << endl << TABLENAME << endl;
-
-    if(str=="(")
+    ifstream infofile;
+    infofile.open("FileInformation.txt");
+    ll total_table, total_column;
+    infofile >> total_table;
+    cout << total_table;
+    infofile.close();
+    if(total_table == 0)
     {
-        while(str!=")")
-        {
-            string var_type;
+       ofstream database;
+       database.open("My_database.txt", ios::app);
+       database << TABLENAME << endl << endl;
 
-            cin >> str >> var_type;
+       ofstream tableshowing;
+       tableshowing.open("Table_Showing.txt", ios::app);
 
-            if ( str!=")" )
+       tableshowing << TABLENAME << '\t';
 
-            database << str << "\t";
-        }
+       if(str=="(")
+       {
+           string s1;
+           cin >> str >> s1;
+           while(str!=")")
+           {
+               total_column++;
+               database << str << "\t\t\t";
+               tableshowing << str << '\t' << s1 << '\t';
+               cin >> str >> s1;
+           }
+       }
+       cout<<43;
+       tableshowing << "." << endl;
+       tableshowing.close();
+       database << endl << endl;
+       remove("FileInformation.txt");
+       database.close();
+       database.open("FileInformation.txt", ios::app);
+       database << total_table+1 << endl;
+       database<< TABLENAME <<'\t' << 0 << '\t' << total_column << endl;
+       database.close();
 
-        cout << endl;
+       cout << endl << endl << "Table created successfully!" << endl << endl;
     }
-
-    database.close();
 }
