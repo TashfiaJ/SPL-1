@@ -245,12 +245,14 @@ void field_value(ll x)
 int main ()
 {
     string command;
-    cout << "Enter the command: ";
+    cout << "Enter the command: " << endl;
     cin >> command;
 
     if(command == "CREATE")
     {
-        createtable();
+        string s1, s2,s3;
+        cin >> s1 >> s2 >> s3;
+        createtable(command, s1, s2, s3);
     }
 
     else if (command == "INSERT")
