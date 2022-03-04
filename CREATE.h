@@ -32,8 +32,12 @@ void createtable(string command, string table, string TABLENAME, string str)
 {
     ifstream infofile;
     infofile.open("FileInformation.txt");
-    ll total_table, total_column;
-    infofile >> total_table;
+    string s;
+    ll total_table;
+    ll total_column=0;
+    infofile >> s;
+    if(s=="")total_table=0;
+    else total_table=stoll(s);
     infofile.close();
     if(total_table == 0)
     {
@@ -53,7 +57,7 @@ void createtable(string command, string table, string TABLENAME, string str)
            while(str!=")")
            {
                total_column++;
-               database << str << "\t\t\t";
+               database << str << '\t' << '\t' << '\t';
                tableshowing << str << '\t' << s1 << '\t';
                cin >> str >> s1;
            }
@@ -71,11 +75,10 @@ void createtable(string command, string table, string TABLENAME, string str)
        cout << endl << endl << "Table created successfully!" << endl << endl;
     }
      else
-    {
+    {   
+        
         ifstream ifile;
-
         ifile.open("FileInformation.txt", ios::in);
-
         ifile >> total_table;
 
         ARRAY1 tableinfo[total_table];
@@ -92,9 +95,7 @@ void createtable(string command, string table, string TABLENAME, string str)
         ifile.close();
 
         remove("FileInformation.txt");
-        
         ofstream ofile;
-
         ofile.open("FileInformation.txt", ios::app);
 
         ofile << total_table+1 << '\n';
@@ -108,7 +109,6 @@ void createtable(string command, string table, string TABLENAME, string str)
             ofile << endl;
             
         }
-        
         ll sum_of_rows = 0;
 
         for (ll i=0; i<total_table; i++)
@@ -125,17 +125,17 @@ void createtable(string command, string table, string TABLENAME, string str)
 
         iffile.open("My_database.txt", ios::in );
 
-        string str, table;
+        string str1, table;
 
         ll index = 0;
 
         for(ll i=0; i<total_table; i++)
         {
             iffile >> table;
-            getline(iffile, str);
-            getline(iffile, str);
+            getline(iffile, str1);
+            getline(iffile, str1);
             getline(iffile, HEADER1[i]);
-            getline(iffile, str);
+            getline(iffile, str1);
 
             ll Iindex = 0;
 
@@ -148,9 +148,10 @@ void createtable(string command, string table, string TABLENAME, string str)
 
             if (i != total_table-1 )
             {
-                getline(iffile, str);
+                getline(iffile, str1);
             }
         }
+        
 
         iffile.close();
 
@@ -186,19 +187,18 @@ void createtable(string command, string table, string TABLENAME, string str)
         tableShow.open("Table_Showing.txt",ios::app);
         offile << endl << TABLENAME << endl << endl;
         tableShow << TABLENAME << '\t';
-        
-        if(str=="(")
-         {          
+        if(str=="("){
            string s1;
            cin >> str >> s1;
+           
            while(str!=")")
            {
                total_column++;
                offile << str << "\t\t\t";
                tableShow << str << '\t' << s1 << '\t';
                cin >> str >> s1;
-           }
-       }
+           }}
+       
         tableShow << "." << endl;
         tableShow.close();
         offile << endl << endl;
