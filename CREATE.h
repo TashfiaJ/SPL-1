@@ -76,7 +76,6 @@ void createtable(string command, string table, string TABLENAME, string str)
     }
      else
     {   
-        
         ifstream ifile;
         ifile.open("FileInformation.txt", ios::in);
         ifile >> total_table;
