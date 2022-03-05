@@ -198,6 +198,7 @@ void createtable(string command, string table, string TABLENAME, string str)
                tableShow << str << '\t' << s1 << '\t';
                cin >> str >> s1;
            }
+            
         }
        
         tableShow << "." << endl;
