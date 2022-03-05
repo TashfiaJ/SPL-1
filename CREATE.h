@@ -76,6 +76,7 @@ void createtable(string command, string table, string TABLENAME, string str)
     }
      else
     {   
+        
         ifstream ifile;
         ifile.open("FileInformation.txt", ios::in);
         ifile >> total_table;
@@ -164,7 +165,7 @@ void createtable(string command, string table, string TABLENAME, string str)
 
         for(ll i=0; i<total_table; i++)
         {
-            offile << table << endl << endl;
+            offile << tableinfo[i].table_name << endl << endl;
             offile << HEADER1[i] << endl << endl;
 
             ll Iindex = 0;
@@ -185,7 +186,7 @@ void createtable(string command, string table, string TABLENAME, string str)
         ofstream tableShow;
         tableShow.open("Table_Showing.txt",ios::app);
         offile << endl << TABLENAME << endl << endl;
-        tableShow << TABLENAME << '\t';
+        tableShow << endl << TABLENAME << '\t';
         if(str=="("){
            string s1;
            cin >> str >> s1;
@@ -196,7 +197,8 @@ void createtable(string command, string table, string TABLENAME, string str)
                offile << str << "\t\t\t";
                tableShow << str << '\t' << s1 << '\t';
                cin >> str >> s1;
-           }}
+           }
+        }
        
         tableShow << "." << endl;
         tableShow.close();
