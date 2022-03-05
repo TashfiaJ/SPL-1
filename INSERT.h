@@ -3,6 +3,7 @@
 using namespace std;
 #define ll long long
 
+ll flag = 0;
 struct ARRAY {
     string table_name;
     ll row;
@@ -175,9 +176,9 @@ void insert_table ()
             }
 
             if ( tableinfo[i].table_name == tablename )
-            {
+            {   
+                flag=1;
                if(str=="("){
-                   cout << "aa";
                     while(1)
                         {
                             string comma;
@@ -196,7 +197,7 @@ void insert_table ()
                                break;
                             }
                         }
-                            cout << endl << endl;
+                            offile << endl;
                }
             }
             
@@ -207,8 +208,14 @@ void insert_table ()
         }
 
         offile.close();
-
-        cout << "Row inserted in " << tablename <<" successfully!" << endl << endl;
+        if(flag)
+        {
+            cout << "Row inserted in " << tablename <<" successfully!" << endl << endl;
+        }
+        else
+        {
+           cout << "There is no such table." << endl << endl; 
+        }
 
     }
 
