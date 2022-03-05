@@ -1,5 +1,4 @@
 #include<bits/stdc++.h>
-#include "create.h"
 #include<fstream>
 using namespace std;
 #define ll long long
@@ -23,14 +22,14 @@ void field_value(ll x)
     FIELD = new string [x];
 }
 
-/* INSERT INTO table name
+/* INSERT INTO table_name
    values ( 1, Tash, 1223 ) ;
 */
 void insert_table ()
 {
     string into, tablename, value, str;
 
-    // input into table name values (
+    // input into table_name values (
     cin >> into;
     cin >> tablename;
     cin >> value;
@@ -38,13 +37,16 @@ void insert_table ()
 
     // store table name, total row, total column from file
     // first need to store total table no
-    
     ifstream ifile;
 
     ifile.open("FileInformation.txt", ios::in);
-
-    ll total_table = 0;
-    ifile >> total_table;
+    string tablee;
+    ll total_table;
+    ifile >> tablee;
+    if(tablee=="")
+        total_table=0;
+    else
+        total_table=stoll(tablee);
 
     // close the file
     ifile.close();
@@ -121,17 +123,17 @@ void insert_table ()
 
         iffile.open("My_database.txt", ios::in );
 
-        string str, table;
+        string str1, table;
 
         ll index = 0;
 
         for(ll i=0; i<total_table; i++)
         {
             iffile >> table;
-            getline(iffile, str);
-            getline(iffile, str);
+            getline(iffile, str1);
+            getline(iffile, str1);
             getline(iffile, HEADER[i]);
-            getline(iffile, str);
+            getline(iffile, str1);
 
             ll Iindex = 0;
 
@@ -144,7 +146,7 @@ void insert_table ()
 
             if (i != total_table-1 )
             {
-                getline(iffile, str);
+                getline(iffile, str1);
             }
         }
 
@@ -160,7 +162,7 @@ void insert_table ()
 
         for(ll i=0; i<total_table; i++)
         {
-            offile << table << endl << endl;
+            offile << tableinfo[i].table_name << endl << endl;
             offile << HEADER[i] << endl << endl;
 
             ll Iindex = 0;
@@ -172,24 +174,32 @@ void insert_table ()
                 Iindex++;
             }
 
-            if ( table == tablename )
+            if ( tableinfo[i].table_name == tablename )
             {
-               if(str=="(")
-                {
-                    while(str!=")")
+               if(str=="("){
+                   cout << "aa";
+                    while(1)
                         {
                             string comma;
 
                             cin >> str >> comma;
 
-                            if(str!=")")
-
-                                offile << str << "\t";
+                            if(comma!=")")
+                            {
+                                offile << str << "\t" << "\t" << "\t";
                             }
-
-                            cout << endl;
-                }
+                            else
+                            {
+                               string ss;
+                               cin >> ss;
+                               offile << str << "\t" << "\t" << "\t";
+                               break;
+                            }
+                        }
+                            cout << endl << endl;
+               }
             }
+            
             if (i != total_table-1 )
             {
                 offile << endl;
@@ -198,8 +208,7 @@ void insert_table ()
 
         offile.close();
 
-        cout << "Row inserted in" << tablename <<" successfully!" << endl << endl;
-
+        cout << "Row inserted in " << tablename <<" successfully!" << endl << endl;
 
     }
 
