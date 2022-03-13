@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
-#include "create.h"
-#include "insert.h"
+#include "CREATE.h"
+#include "INSERT.h"
 #include "SHOW.h"
 #include<fstream>
 using namespace std;
