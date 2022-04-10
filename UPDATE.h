@@ -1,3 +1,8 @@
+#include<bits/stdc++.h>
+#include<fstream>
+using namespace std;
+#define ll long long
+
 void updateRow()
 {
      string s6,s7,s8,s9,input;
@@ -22,8 +27,7 @@ void updateRow()
 
      else
      {
-        string  where,row,equ;
-        int rowToUpdate;
+        string  where,row,equ,rowToUpdate;
         cin>>s3>>where>>row>>equ>>rowToUpdate;
 
         ifstream iInfo;
@@ -116,18 +120,26 @@ void updateRow()
         aFile.open("database.txt");
 
         idx=0;
+        
+        ll column;
 
         for(int i=0;i<numOfTables;i++)
         {
             aFile<<strArr[i].tableName<<endl<<endl;
             aFile<<header[i]<<endl<<endl;
+            
+            if(strArr[i].tableName==s3 && header[i]==row)
+            {
+                column = i;
+            }
 
             int individualIndexTable=0;
 
             while(individualIndexTable!=strArr[i].numOfRows)
             {
-                if(strArr[i].tableName==s3 &&  individualIndexTable==rowToUpdate-1)
-                {
+                if(strArr[i].tableName==s3 ) stringArr[index][column]==rowToUpdate)
+                {   
+                    if((equ=='=' && stringArr[index][column]==rowToUpdate)||(equ=='<' && stringArr[index][column]<rowToUpdate)||(equ=='>' && stringArr[index][column]>rowToUpdate)){
                     int i1,i2;
                     string c,s7,s9;
 
@@ -145,7 +157,7 @@ void updateRow()
 
                     idx++;
                     individualIndexTable++;
-                }
+                }}
 
                 else
                 {
