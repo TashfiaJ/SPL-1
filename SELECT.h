@@ -12,16 +12,6 @@ struct ARRAY1 {
 string *HEADER1;
 string *FIELD1;
 
-void column_name1 (ll x)
-{
-    HEADER1 = new string [x];
-}
-
-void field_value1(ll x)
-{
-    FIELD1 = new string [x];
-}
-
 void selectInfo()
 {
     string checker;
