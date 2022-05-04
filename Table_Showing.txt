@@ -1,0 +1,3 @@
+table	ID	int,	NAME	varchar,	ROLL	int	.
+
+STUDENT	ID	int,	NAME	varchar,	ROLL	int	.
