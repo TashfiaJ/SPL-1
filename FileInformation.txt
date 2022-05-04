@@ -1,0 +1,3 @@
+2
+table 2 3
+STUDENT 0 3
