@@ -2,6 +2,7 @@
 #include "CREATE.h"
 #include "INSERT.h"
 #include "SHOW.h"
+#include "SELECT.h"
 #include<fstream>
 using namespace std;
 #define ll long long
@@ -23,6 +24,11 @@ int main ()
     else if (command == "INSERT")
     {
         insert_table();
+    }
+    
+    else if (command == "SELECT")
+    {
+        select_info();
     }
     
     else if(command == "SHOW")
