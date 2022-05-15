@@ -13,6 +13,15 @@ string *HEADER2;
 string *FIELD2;
 ARRAY2 *strArr;
 
+vector < string > conditions;
+vector < string > cond_column;
+vector < ll > cond_column_no;
+vector < string > condval_column;
+vector < string > condsign_column;
+vector < string > mulcondval;
+vector < string >col1; //select column
+vector < string > split_table_column; //target table column name
+	
 void column_name2 (ll x)
 {
     HEADER2 = new string [x];
@@ -26,6 +35,138 @@ void field_value2(ll x)
 void structArr(ll n)
 {
     strArr = new ARRAY2[n];
+}
+
+vector < string > parser(string s)
+{
+	int i=0;
+	string a;
+	vector < string > parse;
+	while(s[i]!='\0')
+	{
+		if(s[i]==' ' || s[i]==',' || s[i]=='('  ||s[i]==';')
+		{
+			if(s[i]=='(')
+			{
+				i++;
+				if(a!="" && a!=" ")
+					parse.push_back(a);
+				a="";
+				while(s[i]!=')')
+				{
+					a+=s[i];
+					i++;
+				}				
+				if(a!="" && a!=" ")
+					parse.push_back(a);
+				a="";
+			}
+			else if(s[i]==',' || s[i]==' ')
+			{
+				if(a!="" && a!=" ")
+					parse.push_back(a);
+				a="";
+			}
+		}	
+		else
+		{
+			a+=s[i];
+		}
+
+		i++;
+	}
+	if(a!="")
+		parse.push_back(a);
+	return parse;
+}
+
+void parse(vector <string> list)
+{
+		ll i=0;
+		//if(list[0]!="Select")
+		//	return 0;
+		i=1;
+		if(i<list.size())
+		{
+			while(i<list.size())
+			{
+				if(list[i]=="AND" || list[i]=="and") mulcondval.push_back("AND");
+				else if(list[i]=="OR" || list[i]=="or" ) mulcondval.push_back("OR");
+				else
+				{
+					conditions.push_back(list[i]);
+				}
+				i++;
+			}	
+		}
+		//return 1;
+}
+
+vector < string > parse_con(string s)
+{
+	int i=0;
+	string a="";
+	vector<string > v;
+	while(s[i]!='\0')
+	{
+		if(s[i]=='=' || s[i]=='<' || s[i]=='>' )
+		{
+				v.push_back(a);
+				a="";
+				while(s[i]=='=' || s[i]=='<' || s[i]=='>')
+				{
+					a+=s[i];
+					i++;
+				}
+				v.push_back(a);
+				a="";	
+		}
+		else
+		{
+			a+=s[i];
+			i++;
+		}	
+	}
+	v.push_back(a);
+	return v;
+}
+
+string rem(string a)
+{
+	int i=0;
+	string tab="";
+	while(a[i]!='\0')
+	{
+		tab+=a[i];
+		if(a[i]=='.')tab="";
+		i++;
+	}
+	return tab;
+}
+
+void extract_condition()
+{
+	int i=0,k=0;
+	std::vector<string> v;	
+	while(i<conditions.size())
+	{
+		v=parse_con(conditions[i]);
+		//printlist(v);	
+		cond_column.push_back(v[0]);
+		condsign_column.push_back(v[1]);
+		condval_column.push_back(v[2]);
+
+				k=0;
+				while(k<split_table_column.size())
+				{
+					if(split_table_column[k]==rem(v[0]))
+						cond_column_no.push_back(k);
+					k++;		
+				}
+		
+		i++;
+	}
+	
 }
 
 void select_info()
@@ -205,7 +346,10 @@ void select_info()
             col1.push_back(tempx);
         }
         cin>>s3;
-
+        //input
+        string input;
+        getline(cin, input);
+        parse(parser(input));
 
         cout<<endl<<"Enter your name : "<<endl;
         getline(cin,userName);
@@ -375,6 +519,7 @@ void select_info()
             for(int i=0;i<numOfCol;i++)
             {
                 splitFileRead>>colHeader;
+                split_table_column.push_back(colHeader);
                 for(int j=0; j<col1.size();j++){
                 if (col1[j] == colHeader)
                 {
@@ -386,9 +531,11 @@ void select_info()
                 
 
             }
-
+            
             cout<<endl;
-
+            
+            extract_condition();
+            
             string colValue;
             
             for(int i=0;i<storeNumberOfRows;i++)
