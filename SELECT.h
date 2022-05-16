@@ -144,6 +144,48 @@ string rem(string a)
 	return tab;
 }
 
+vector<string> parse_line(string s)
+{
+	std::vector<string> v;
+	string a;
+	int i=0;
+	while(s[i]!='\0')
+	{	
+		if(s[i]==',')
+		{
+			v.push_back(a);
+			a="";
+		}
+		else
+		{
+			a+=s[i];
+		}	
+		i++;		
+	}
+	if(a!="")
+		v.push_back(a);	
+	return v;
+}
+
+ll ston(string s)
+{
+	ll i=0,flag=1;
+	ll sum=0;
+	if(s[i]=='-')
+	{
+		flag=-1;
+		i++;		
+	}
+	sum=0;
+	while(s[i]!='\0')
+	{
+		sum*=10;
+		sum+=s[i]-48;
+		i++;
+	}
+	return sum*flag;
+}
+
 void extract_condition()
 {
 	int i=0,k=0;
@@ -167,6 +209,40 @@ void extract_condition()
 		i++;
 	}
 	
+}
+
+bool execute_condition ( vector < string > v1 )
+{
+	int i=0,temp_flag,flag_con;
+	string val1 , val2, sign ;
+	
+	val1=v1[cond_column_no[0]-1];
+	val2=condval_column[0];
+	sign=condsign_column[0];
+	
+	flag_con=eval(val1,val2,sign);		
+	//cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
+	i=1;
+	while(i<cond_column.size())
+	{
+		
+		val1=v1[cond_column_no[i]-1];
+		
+		val2=condval_column[i];
+		sign=condsign_column[i];
+
+		temp_flag=eval(val1,val2,sign);
+		if(mulcondval[i-1]=="AND")
+			flag_con=flag_con&temp_flag;
+		else if(mulcondval[i-1]=="OR")
+			flag_con=flag_con|temp_flag;
+		i++;
+	//	cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
+	} 
+	if(flag_con==1)
+		return true;
+	else if(flag_con==0)
+		return false;
 }
 
 void select_info()
@@ -536,7 +612,24 @@ void select_info()
             
             extract_condition();
             
-            string colValue;
+            string colValue, tempRec;
+            vector<string> v1;
+            bool display;
+            for(ll i=0; i< storeNumberOfRows; i++)
+            {
+                getline(splitFileRead, tempRec);
+                v1=parse_line(tempRec);
+                if(conditions.size()>0)
+					{
+						display=execute_condition(v1);
+						if(display)
+						{
+						    for(ll j=0;j<storeCol1.size();j++)
+						        cout << v1[storeCol1[j]]<<'\t'<<'\t'<<'\t';
+						    cout<<endl;
+						}
+					}
+            }
             
             for(int i=0;i<storeNumberOfRows;i++)
             {
