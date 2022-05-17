@@ -151,8 +151,9 @@ vector<string> parse_line(string s)
 	int i=0;
 	while(s[i]!='\0')
 	{	
-		if(s[i]==',')
-		{
+		if(s[i]==' ')
+		{   
+		    if(a!="" && a!=" ")
 			v.push_back(a);
 			a="";
 		}
@@ -185,6 +186,34 @@ ll ston(string s)
 	}
 	return sum*flag;
 }
+ int eval(string s1,string s2,string sign)
+{
+	int val1,val2;
+	int flag=0;
+		val1=ston(s1);
+		val2=ston(s2);
+		if(sign==">")
+		{
+			if(val1>val2)flag++;			
+		}	
+		else if(sign=="<")
+		{
+			if(val1<val2)flag++;			
+		}
+		else if(sign==">=")
+		{
+			if(val1>=val2)flag++;			
+		}
+		else if(sign=="<=")
+		{
+			if(val1<=val2)flag++;			
+		}
+		else if(sign=="=")
+		{
+			if(val1==val2)flag++;			
+		}
+	return flag;
+}
 
 void extract_condition()
 {
@@ -216,7 +245,7 @@ bool execute_condition ( vector < string > v1 )
 	int i=0,temp_flag,flag_con;
 	string val1 , val2, sign ;
 	
-	val1=v1[cond_column_no[0]-1];
+	val1=v1[cond_column_no[0]];
 	val2=condval_column[0];
 	sign=condsign_column[0];
 	
@@ -226,7 +255,7 @@ bool execute_condition ( vector < string > v1 )
 	while(i<cond_column.size())
 	{
 		
-		val1=v1[cond_column_no[i]-1];
+		val1=v1[cond_column_no[i]];
 		
 		val2=condval_column[i];
 		sign=condsign_column[i];
@@ -429,7 +458,6 @@ void select_info()
 
         cout<<endl<<"Enter your name : "<<endl;
         getline(cin,userName);
-        getline(cin,userName);
         cout<<"Enter user ID : "<<endl;
         cin>>userID;
 
@@ -616,9 +644,12 @@ void select_info()
             vector<string> v1;
             bool display;
             for(ll i=0; i< storeNumberOfRows; i++)
-            {
-                getline(splitFileRead, tempRec);
-                v1=parse_line(tempRec);
+            {   v1.clear();
+                for(int k=0;k<numOfCol;k++)
+                {
+                    splitFileRead>>colValue;
+                    v1.push_back(colValue);}
+             
                 if(conditions.size()>0)
 					{
 						display=execute_condition(v1);
@@ -631,7 +662,7 @@ void select_info()
 					}
             }
             
-            for(int i=0;i<storeNumberOfRows;i++)
+            /*for(int i=0;i<storeNumberOfRows;i++)
             {
                 for(int j=0;j<numOfCol;j++)
                 {
@@ -645,7 +676,7 @@ void select_info()
                     
                 }
                 cout<<endl;
-            }
+            }*/
 
             splitFileRead.close();
         }
