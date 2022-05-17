@@ -186,7 +186,7 @@ ll ston(string s)
 	}
 	return sum*flag;
 }
- int eval(string s1,string s2,string sign)
+bool eval(string s1,string s2,string sign)
 {
 	int val1,val2;
 	int flag=0;
