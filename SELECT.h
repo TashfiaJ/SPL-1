@@ -21,6 +21,7 @@ vector < string > condsign_column;
 vector < string > mulcondval;
 vector < string >col1; //select column
 vector < string > split_table_column; //target table column name
+string s3; //table name
 	
 void column_name2 (ll x)
 {
@@ -71,12 +72,14 @@ vector < string > parser(string s)
 		else
 		{
 			a+=s[i];
+			cout << a;
 		}
 
 		i++;
 	}
 	if(a!="")
 		parse.push_back(a);
+	
 	return parse;
 }
 
@@ -86,6 +89,25 @@ void parse(vector <string> list)
 		//if(list[0]!="Select")
 		//	return 0;
 		i=1;
+		
+		while(list[i]!="FROM")
+		{
+			col1.push_back(list[i]);
+			i++;
+		}
+		i++;
+		if(i<list.size())
+		{
+			while(list[i]!="WHERE")
+			{
+				s3 = list[i];
+				i++;
+				if(i==list.size())
+						break;
+			}	
+		}
+		
+		i++;
 		if(i<list.size())
 		{
 			while(i<list.size())
@@ -438,7 +460,7 @@ void select_info()
     }
     else
     {
-        vector<string>col1;
+        /*vector<string>col1;
         string userName,userID, tempx;
         tempx=checker;
         col1.push_back(checker);
@@ -450,12 +472,12 @@ void select_info()
                 break;
             col1.push_back(tempx);
         }
-        cin>>s3;
+        cin>>s3;*/
         //input
         string input;
         getline(cin, input);
         parse(parser(input));
-
+        string userName,userID;
         cout<<endl<<"Enter your name : "<<endl;
         getline(cin,userName);
         cout<<"Enter user ID : "<<endl;
