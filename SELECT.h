@@ -21,6 +21,10 @@ vector < string > condsign_column;
 vector < string > mulcondval;
 vector < string >col1; //select column
 vector < string > split_table_column; //target table column name
+string colname; //orders column name
+ll colnum; //orders column index
+string sorting;
+vector < string > table[100];
 	
 void column_name2 (ll x)
 {
@@ -85,7 +89,6 @@ void parse(vector <string> list)
 		ll i=0;
 		//if(list[0]!="Select")
 		//	return 0;
-		i=1;
 		if(i<list.size())
 		{
 			while(i<list.size())
@@ -274,6 +277,59 @@ bool execute_condition ( vector < string > v1 )
 		return false;
 }
 
+int partition(ll startt, ll endd)
+{
+ 
+    string pivot = table[startt][colnum];
+ 
+    ll count = 0;
+    for (ll i = startt + 1; i <= endd; i++) {
+        if (table[i][colnum] <= pivot)
+            count++;
+    }
+ 
+    // Giving pivot element its correct position
+    int pivotIndex = startt + count;
+    swap(table[pivotIndex], table[startt]);
+ 
+    // Sorting left and right parts of the pivot element
+    int i = startt, j = endd;
+ 
+    while (i < pivotIndex && j > pivotIndex) {
+ 
+        while (table[i][colnum] <= pivot) {
+            i++;
+        }
+ 
+        while (table[j][colnum] > pivot) {
+            j--;
+        }
+ 
+        if (i < pivotIndex && j > pivotIndex) {
+            swap(table[i++], table[j--]);
+        }
+    }
+ 
+    return pivotIndex;
+}
+
+void quickSort(ll startt, ll endd)
+{
+ 
+   
+    if (startt >= endd)
+        return;
+ 
+    
+    int p = partition( startt, endd);
+ 
+    
+    quickSort(startt, p - 1);
+ 
+    
+    quickSort( p + 1, endd);
+}
+
 void select_info()
 {
     string checker;
@@ -438,7 +494,7 @@ void select_info()
     }
     else
     {
-        vector<string>col1;
+        
         string userName,userID, tempx;
         tempx=checker;
         col1.push_back(checker);
@@ -452,9 +508,18 @@ void select_info()
         }
         cin>>s3;
         //input
-        string input;
+        string input, keyword;
+        cin >> keyword;
+        if(keyword=="WHERE"){
         getline(cin, input);
-        parse(parser(input));
+        parse(parser(input));}
+        //For sorting
+        else
+        {
+            cin >> keyword;
+            cin >> colname;
+            cin >> sorting;
+        }
 
         cout<<endl<<"Enter your name : "<<endl;
         getline(cin,userName);
@@ -630,6 +695,10 @@ void select_info()
                     cout<<colHeader<<'\t'<<'\t'<<'\t';
                     storeCol1.push_back(i);
                 }
+                if (col1[j] == colname)
+                {
+                    colnum=j;
+                }
                     
                 }
                 
@@ -637,7 +706,7 @@ void select_info()
             }
             
             cout<<endl;
-            
+            if(keyword=="WHERE"){
             extract_condition();
             
             string colValue, tempRec;
@@ -679,9 +748,32 @@ void select_info()
             }*/
 
             splitFileRead.close();
+             //recordFile.close();
         }
-     }
+     
 
+     //recordFile.close();
+     else
+     {
+        
+        string colValue;
+        for(ll i=0; i< storeNumberOfRows; i++)
+            {   
+                for(int k=0;k<numOfCol;k++)
+                {
+                    splitFileRead>>colValue;
+                    table[i].push_back(colValue);
+                }
+            }
+        quickSort( 0 , storeNumberOfRows);
+        for(ll i=0; i< storeNumberOfRows; i++){
+            for(ll j=0;j<storeCol1.size();j++)
+						        cout << table[i][storeCol1[j]]<<'\t'<<'\t'<<'\t';
+						    cout<<endl;
+        }
+             
+        
+     }
      recordFile.close();
      //readSelectRecordFile();
 }
