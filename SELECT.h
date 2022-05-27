@@ -2,7 +2,6 @@
 #include<fstream>
 using namespace std;
 #define ll long long
-
 struct ARRAY2 {
     string table_name;
     ll row;
@@ -519,10 +518,10 @@ void select_info()
             cin >> keyword;
             cin >> colname;
             cin >> sorting;
+            
         }
-
         cout<<endl<<"Enter your name : "<<endl;
-        getline(cin,userName);
+        cin>>userName;
         cout<<"Enter user ID : "<<endl;
         cin>>userID;
 
@@ -689,23 +688,27 @@ void select_info()
             {
                 splitFileRead>>colHeader;
                 split_table_column.push_back(colHeader);
+                if (keyword=="BY" && colHeader == colname)
+                {
+                    colnum=i;
+                    
+                }
                 for(int j=0; j<col1.size();j++){
+                    //cout<<j<<endl;
                 if (col1[j] == colHeader)
                 {
                     cout<<colHeader<<'\t'<<'\t'<<'\t';
                     storeCol1.push_back(i);
                 }
-                if (col1[j] == colname)
-                {
-                    colnum=j;
-                }
                     
                 }
                 
-
+                
+                
             }
             
             cout<<endl;
+            
             if(keyword=="WHERE"){
             extract_condition();
             
@@ -749,31 +752,39 @@ void select_info()
 
             splitFileRead.close();
              //recordFile.close();
+            
         }
      
-
-     //recordFile.close();
-     else
+     if(keyword=="BY")
      {
-        
+         //cout<<"Upside down"<<endl;
+          
         string colValue;
+        
         for(ll i=0; i< storeNumberOfRows; i++)
             {   
                 for(int k=0;k<numOfCol;k++)
                 {
                     splitFileRead>>colValue;
                     table[i].push_back(colValue);
+                    //cout<<table[i][k]<<endl;
                 }
             }
-        quickSort( 0 , storeNumberOfRows);
+            //cout<<storeNumberOfRows<<" "<<storeCol1.size()<<endl;
+        
+        quickSort( 0 , storeNumberOfRows-1);
+        
         for(ll i=0; i< storeNumberOfRows; i++){
             for(ll j=0;j<storeCol1.size();j++)
 						        cout << table[i][storeCol1[j]]<<'\t'<<'\t'<<'\t';
 						    cout<<endl;
         }
              
-        
+        splitFileRead.close();
      }
-     recordFile.close();
+    }
+    recordFile.close();
+    }
+    
      //readSelectRecordFile();
 }
