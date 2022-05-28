@@ -3,6 +3,7 @@
 #include "INSERT.h"
 #include "SHOW.h"
 #include "SELECT.h"
+#include "UPDATE.h"
 #include<fstream>
 using namespace std;
 #define ll long long
@@ -24,6 +25,11 @@ int main ()
     else if (command == "INSERT")
     {
         insert_table();
+    }
+    
+    else if (command == "UPDATE")
+    {
+        update();
     }
     
     else if (command == "SELECT")
