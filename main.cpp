@@ -4,6 +4,7 @@
 #include "SHOW.h"
 #include "SELECT.h"
 #include "UPDATE.h"
+#include "DELETE.h"
 #include<fstream>
 using namespace std;
 #define ll long long
@@ -26,17 +27,22 @@ int main ()
     {
         insert_table();
     }
-    
+
     else if (command == "UPDATE")
     {
         update();
     }
-    
+
+    else if (command == "DELETE")
+    {
+        delete_row();
+    }
+
     else if (command == "SELECT")
     {
         select_info();
     }
-    
+
     else if(command == "SHOW")
     {
         string  table;
@@ -46,3 +52,4 @@ int main ()
 
     else cout << "Command Invalid!\n";
 }
+
