@@ -56,17 +56,9 @@ vector < string > parser1(string s)
 	{
 		if(s[i]==' ' || s[i]==',' || s[i]=='('  ||s[i]==';')
 		{
-			if(s[i]=='(')
+			if(s[i]=='(' || s[i]==')')
 			{
 				i++;
-				if(a!="" && a!=" ")
-					parse.push_back(a);
-				a="";
-				while(s[i]!=')')
-				{
-					a+=s[i];
-					i++;
-				}				
 				if(a!="" && a!=" ")
 					parse.push_back(a);
 				a="";
@@ -77,7 +69,7 @@ vector < string > parser1(string s)
 					parse.push_back(a);
 				a="";
 			}
-		}	
+		}
 		else
 		{
 			a+=s[i];
@@ -90,34 +82,34 @@ vector < string > parser1(string s)
 	return parse;
 }
 
-void parse1(vector <string> list)
+void parse1(vector <string> listt)
 {
 		ll i=1;
-		if(i<list.size())
+		if(i<listt.size())
 		{
-			while(list[i]!="where")
+			while(listt[i]!="WHERE")
 			{
-				updates.push_back(list[i]);
+				updates.push_back(listt[i]);
 				i++;
-				if(i==list.size())
+				if(i==listt.size())
 						break;
-			}	
+			}
 		}
 		i++;
-		if(i<list.size())
+		if(i<listt.size())
 		{
-			while(i<list.size())
+			while(i<listt.size())
 			{
-				if(list[i]=="AND" || list[i]=="and") mulcondval1.push_back("AND");
-				else if(list[i]=="OR" || list[i]=="or" ) mulcondval1.push_back("OR");
+				if(listt[i]=="AND" || listt[i]=="and") mulcondval1.push_back("AND");
+				else if(listt[i]=="OR" || listt[i]=="or" ) mulcondval1.push_back("OR");
 				else
 				{
-					conditions1.push_back(list[i]);
+					conditions1.push_back(listt[i]);
 				}
 				i++;
-			}	
+			}
 		}
-		
+
 }
 
 vector < string > parse_con1(string s)
@@ -137,13 +129,13 @@ vector < string > parse_con1(string s)
 					i++;
 				}
 				v.push_back(a);
-				a="";	
+				a="";
 		}
 		else
 		{
 			a+=s[i];
 			i++;
-		}	
+		}
 	}
 	v.push_back(a);
 	return v;
@@ -167,22 +159,25 @@ vector<string> parse_line1(string s)
 	std::vector<string> v;
 	string a;
 	int i=0;
+
 	while(s[i]!='\0')
-	{	
+	{
 		if(s[i]==' ')
-		{   
-		    if(a!="" && a!=" ")
+		{
+		    if(a!="" && a!=" "){
 			v.push_back(a);
+			//cout << a << endl;
+			}
 			a="";
 		}
 		else
 		{
 			a+=s[i];
-		}	
-		i++;		
+		}
+		i++;
 	}
 	if(a!="")
-		v.push_back(a);	
+		v.push_back(a);
 	return v;
 }
 
@@ -193,7 +188,7 @@ ll ston1(string s)
 	if(s[i]=='-')
 	{
 		flag=-1;
-		i++;		
+		i++;
 	}
 	sum=0;
 	while(s[i]!='\0')
@@ -207,29 +202,28 @@ ll ston1(string s)
 
 bool eval1(string s1,string s2,string sign)
 {
-	int val1,val2;
-	int flag=0;
+        int val1,val2,flag=0;
 		val1=ston1(s1);
 		val2=ston1(s2);
 		if(sign==">")
 		{
-			if(val1>val2)flag++;			
-		}	
+			if(val1>val2)flag++;
+		}
 		else if(sign=="<")
 		{
-			if(val1<val2)flag++;			
+			if(val1<val2)flag++;
 		}
 		else if(sign==">=")
 		{
-			if(val1>=val2)flag++;			
+			if(val1>=val2)flag++;
 		}
 		else if(sign=="<=")
 		{
-			if(val1<=val2)flag++;			
+			if(val1<=val2)flag++;
 		}
 		else if(sign=="=")
 		{
-			if(val1==val2)flag++;			
+			if(val1==val2)flag++;
 		}
 	return flag;
 }
@@ -237,11 +231,11 @@ bool eval1(string s1,string s2,string sign)
 void extract_condition1()
 {
 	int i=0,k=0;
-	std::vector<string> v;	
+	std::vector<string> v;
 	while(i<conditions1.size())
 	{
 		v=parse_con1(conditions1[i]);
-		//printlist(v);	
+		//printlist(v);
 		cond_column1.push_back(v[0]);
 		condsign_column1.push_back(v[1]);
 		condval_column1.push_back(v[2]);
@@ -251,12 +245,12 @@ void extract_condition1()
 				{
 					if(split_table_column1[k]==rem1(v[0]))
 						cond_column_no1.push_back(k);
-					k++;		
+					k++;
 				}
-		
+
 		i++;
 	}
-	
+
 }
 
 void extract_column()
@@ -276,42 +270,38 @@ void extract_column()
 				{
 					if(split_table_column1[k]==v[0])
 						updatesValue.push_back({k, column_value});
-					k++;		
+					k++;
 				}
-		
+
 		i++;
 	}
-	
+
 }
 
 bool execute_condition1 ( vector < string > v1 )
 {
-	int i=0,temp_flag,flag_con;
+    int i=0,temp_flag,flag_con;
 	string val1 , val2, sign ;
-	
 	val1=v1[cond_column_no1[0]];
 	val2=condval_column1[0];
 	sign=condsign_column1[0];
-	
-	flag_con=eval1(val1,val2,sign);		
-	//cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
+
+	flag_con=eval1(val1,val2,sign);
 	i=1;
 	while(i<cond_column1.size())
 	{
-		
 		val1=v1[cond_column_no1[i]];
-		
 		val2=condval_column1[i];
 		sign=condsign_column1[i];
 
 		temp_flag=eval(val1,val2,sign);
+
 		if(mulcondval1[i-1]=="AND")
 			flag_con=flag_con&temp_flag;
 		else if(mulcondval[i-1]=="OR")
 			flag_con=flag_con|temp_flag;
 		i++;
-	//	cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
-	} 
+	}
 	if(flag_con==1)
 		return true;
 	else if(flag_con==0)
@@ -319,10 +309,10 @@ bool execute_condition1 ( vector < string > v1 )
 }
 
 void update()
-{    
+{
      int index;
      int sem;
-     
+
      string tablee;
      string table_name;
      ifstream iInfo;
@@ -333,7 +323,7 @@ void update()
         total_table=0;
      else
         total_table=stoll(tablee);
-     
+
      iInfo.close();
 
      int g=0;
@@ -345,8 +335,8 @@ void update()
      }
 
      else
-     {  
-        
+     {
+
         cin >> table_name;
         string input;
         getline(cin, input);
@@ -375,7 +365,6 @@ void update()
         ofstream oInfo;
         oInfo.open("FileInformation.txt", ios::app);
         oInfo<<total_table<<endl;;
-
         for(int i=0;i<total_table;i++)
         {
             oInfo<<strArr2[i].tableName<<" "<<strArr2[i].numOfRows<<" "<<strArr2[i].numCol<<endl;
@@ -398,24 +387,14 @@ void update()
         }
 
         createStringArr2(sum);
-        if(sum==0)
-        {
-            createHeaderArray2(2);
-        }
+        createHeaderArray2(total_table);
 
-        else
-        {
-            createHeaderArray2(sum);
-        }
 
         string tableName,s;
-
         ifstream dFile;
         dFile.open("My_database.txt", ios::in);
 
         ll idx=0;
-        ofstream  splitFile;
-        splitFile.open("Split.txt");
         for(int i=0;i<total_table;i++)
         {
             dFile>>tableName;
@@ -423,18 +402,31 @@ void update()
             getline(dFile,s);
             getline(dFile,header2[i]);
             getline(dFile,s);
-
-            int individualIndexTable=0;
-            if(strArr2[i].tableName==table_name)
+            if(tableName==table_name)
             {
-                splitFile<<HEADER2[i]<<endl;
+                string a="";
+                ll j=0;
+                while(header2[i][j]!='\0')
+                {
+                   if(header2[i][j]=='\t')
+                   {
+                       if(a!="")
+                        split_table_column1.push_back(a);
+                       a="";
+                   }
+                   else
+                   {
+                       a+=header2[i][j];
+                   }
+                   j++;
+                }
+                if(a!="")
+                    split_table_column1.push_back(a);
             }
-
+            int individualIndexTable=0;
             while(individualIndexTable!=strArr2[i].numOfRows)
             {
                 getline(dFile,stringArr2[idx]);
-                if(strArr2[i].tableName==table_name){
-                splitFile<<stringArr2[idx]<<endl;}
                 idx++;
                 individualIndexTable++;
             }
@@ -446,76 +438,68 @@ void update()
         }
 
         dFile.close();
-        splitFile.close();
-
         remove("My_database.txt");
-        
-        //splitFile read to extract update columns
-        ifstream ifile;
-        ifile.open("splitFile.txt");
-        string column;
-        for(ll i=0;i<needCol;i++)
-        {
-           ifile >> column;
-           split_table_column1.push_back(column);
-        }
-        
-        extract_column();
+
+
         extract_condition1();
-        vector<string> v1;
-        bool display;
-        for(ll i=0; i<needRow; i++)
-        {
-            v1.clear();
-           for(ll j=0; j<needCol;j++)
-           {
-              ifile>>column;
-              v1.push_back(column); 
-           }
-           if(conditions1.size()>0)
-			{
-				display=execute_condition1(v1);
-				if(display)
-				{
-					for(ll j=0;j<updatesValue.size();j++)
-					v1[updatesValue[j].first]=updatesValue[j].second;
-				}
-				
-			}
-			for(ll j=0; j<needCol;j++)
-           {
-              target_table_row[i].push_back(v1[j]);
-           }
-			 
-        }
-        ifile.close();
+
+
         ofstream aFile;
-        aFile.open("My_database.txt");
+        aFile.open("My_database.txt", ios::app);
 
         idx=0;
-
+        vector < string > v1;
+        //cout << stringArr2[0];
+        bool display;
         for(int i=0;i<total_table;i++)
         {
             aFile<<strArr2[i].tableName<<endl<<endl;
             aFile<<header2[i]<<endl<<endl;
 
             int individualIndexTable=0;
-            
+
             if(strArr2[i].tableName==table_name)
             {
+
                     for(int x=0;x<needRow;x++)
-                    { 
-                    idx++;
-                    for(int y=0;y<needCol-1;y++)
                     {
-                        aFile<<target_table_row[x][y]<<'\t'<<'\t'<<'\t';
+                        v1.clear();
+                        string a="";
+                        ll j=0;
+                        while(stringArr2[idx][j]!='\0')
+                        {
+                            if(stringArr2[idx][j]=='\t'){
+                                if(a!="")v1.push_back(a);
+                            a="";}
+                            else{
+                                a+=stringArr2[idx][j];
+                            }
+                            j++;
+                        }
+                        if(a!="")v1.push_back(a);
+
+                        if(conditions1.size()>0)
+                            {
+                                display = execute_condition1(v1);
+                                //cout << display << endl;
+                                if(!display)
+                                    aFile<<stringArr2[idx]<<endl;
+                                else{
+                                    for(int y=0; y< needCol; y++)
+                                    {
+                                        aFile<<updates[y]<<'\t'<<'\t'<<'\t';
+                                    }
+                                    aFile<<endl;
+                                }
+
+                            }
+                        idx++;
                         //cout<<"s7"<<"  "<<s7<<endl;
                     }
 
-                    aFile<<endl;
 
                 }
-            }
+
             else
             {
             while(individualIndexTable!=strArr2[i].numOfRows)
@@ -531,6 +515,6 @@ void update()
 
         aFile.close();
     }
-    cout<<"hi";
+
     cout<<endl<<endl<<"Row updated in "<<table_name<<" successfully!"<<endl<<endl;
 }
