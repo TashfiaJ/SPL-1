@@ -79,7 +79,7 @@ vector < string > parser4(string s)
 void parse4(vector <string> listt)
 {
 		ll i=1;
-		
+
 		if(i<listt.size())
 		{
 			while(i<listt.size())
@@ -219,7 +219,6 @@ void extract_condition4()
 	while(i<conditions4.size())
 	{
 		v=parse_con4(conditions4[i]);
-		//printlist(v);
 		cond_column4.push_back(v[0]);
 		condsign_column4.push_back(v[1]);
 		condval_column4.push_back(v[2]);
@@ -234,6 +233,7 @@ void extract_condition4()
 
 		i++;
 	}
+	//cout << cond_column_no4[0];
 
 }
 
@@ -267,10 +267,10 @@ bool execute_condition4 ( vector < string > v1 )
 	else if(flag_con==0)
 		return false;
 }
-
+//DELETE FROM table WHERE ROLL=1223
 void delete_row()
 {
-    int index;
+     int index;
      int sem;
 
      string tablee, from;
@@ -301,7 +301,6 @@ void delete_row()
         string input;
         getline(cin, input);
         parse4(parser4(input));
-
         ifstream iInfo;
         iInfo.open("FileInformation.txt", ios::in);
         iInfo>>total_table;
@@ -319,22 +318,16 @@ void delete_row()
 
         remove("FileInformation.txt");
 
-        ofstream oInfo;
-        oInfo.open("FileInformation.txt", ios::app);
-        oInfo<<total_table<<endl;;
         for(int i=0;i<total_table;i++)
         {
-            oInfo<<strArr4[i].tableName<<" "<<strArr4[i].numOfRows<<" "<<strArr4[i].numCol<<endl;
-
             if(strArr4[i].tableName==table_name)
             {
                 needCol4=strArr4[i].numCol;
                 needRow4=strArr4[i].numOfRows;
             }
-           // cout<<"needcol"<< "   "<<needCol<<endl;
+           
         }
 
-        oInfo.close();
         ll sum=0;
 
         for(int i=0;i<total_table;i++)
@@ -392,13 +385,12 @@ void delete_row()
                 getline(dFile,s);
             }
         }
-
+        //cout << split_table_column4[0] <<" " << split_table_column4[1] <<" "<<split_table_column4[2];
         dFile.close();
         remove("My_database.txt");
 
-        
         extract_condition4();
-        
+
         ofstream aFile;
         aFile.open("My_database.txt", ios::app);
 
@@ -436,11 +428,10 @@ void delete_row()
                         if(conditions4.size()>0)
                             {
                                 display = execute_condition4(v1);
-                                //cout << display << endl;
                                 if(!display)
-                                    aFile<<stringArr2[idx]<<endl;
+                                    aFile<<stringArr4[idx]<<endl;
                                 else{
-                                    
+
                                     deletee++;
                                 }
 
@@ -467,6 +458,20 @@ void delete_row()
 
         aFile.close();
     }
+    ofstream oFInfo;
+    oFInfo.open("FileInformation.txt", ios::app);
+    oFInfo<<total_table<<endl;;
+    for(int i=0;i<total_table;i++)
+    {   
+        if(strArr4[i].tableName==table_name)
+        {
+            oFInfo<<strArr4[i].tableName<<" "<<strArr4[i].numOfRows-deletee<<" "<<strArr4[i].numCol<<endl;
 
-    cout<<endl<<endl<<"Row deleted in "<<table_name<<" successfully!"<<endl<<endl;
+        }
+        else
+        oFInfo<<strArr4[i].tableName<<" "<<strArr4[i].numOfRows<<" "<<strArr4[i].numCol<<endl;
+
+    }
+    oFInfo.close();
+    cout<<endl<<endl<<"Row deleted from "<<table_name<<" successfully!"<<endl<<endl;
 }
