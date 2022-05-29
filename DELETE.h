@@ -268,7 +268,7 @@ bool execute_condition4 ( vector < string > v1 )
 		return false;
 }
 
-void delete()
+void delete_row()
 {
     int index;
      int sem;
@@ -291,7 +291,7 @@ void delete()
 
      if(total_table==0)
      {
-         cout<<"Can't update. Create a table  first."<<endl;
+         cout<<"Can't delete. Create a table  first."<<endl;
      }
 
      else
@@ -301,9 +301,6 @@ void delete()
         string input;
         getline(cin, input);
         parse4(parser4(input));
-        //string  where,row,equ;
-        //int rowToUpdate;
-        //cin>>s3>>where>>row>>equ>>rowToUpdate;
 
         ifstream iInfo;
         iInfo.open("FileInformation.txt", ios::in);
@@ -399,7 +396,7 @@ void delete()
         dFile.close();
         remove("My_database.txt");
 
-
+        
         extract_condition4();
         
         ofstream aFile;
