@@ -283,7 +283,9 @@ int partition(ll startt, ll endd)
  
     ll count = 0;
     for (ll i = startt + 1; i <= endd; i++) {
-        if (table[i][colnum] <= pivot)
+        if (sorting=="ASC" && table[i][colnum] <= pivot)
+            count++;
+        if(sorting=="DESC" && table[i][colnum]>=pivot)
             count++;
     }
  
@@ -295,15 +297,28 @@ int partition(ll startt, ll endd)
     int i = startt, j = endd;
  
     while (i < pivotIndex && j > pivotIndex) {
- 
+        if(sorting=="ASC"){
         while (table[i][colnum] <= pivot) {
             i++;
         }
- 
+        }
+        else
+        {
+          while (table[i][colnum] >= pivot) {
+            i++;
+        }  
+        }
+        if(sorting=="ASC"){
         while (table[j][colnum] > pivot) {
             j--;
         }
- 
+        }
+        else
+        {
+         while (table[j][colnum] < pivot) {
+            j--;
+        }   
+        }
         if (i < pivotIndex && j > pivotIndex) {
             swap(table[i++], table[j--]);
         }
@@ -776,8 +791,8 @@ void select_info()
         
         for(ll i=0; i< storeNumberOfRows; i++){
             for(ll j=0;j<storeCol1.size();j++)
-						        cout << table[i][storeCol1[j]]<<'\t'<<'\t'<<'\t';
-						    cout<<endl;
+				cout << table[i][storeCol1[j]]<<'\t'<<'\t'<<'\t';
+		    cout<<endl;
         }
              
         splitFileRead.close();
