@@ -268,6 +268,7 @@ bool execute_condition4 ( vector < string > v1 )
 		return false;
 }
 //DELETE FROM table WHERE ROLL=1223
+
 void delete_row()
 {
      int index;
@@ -396,7 +397,7 @@ void delete_row()
 
         idx=0;
         vector < string > v1;
-        //cout << stringArr2[0];
+        
         bool display;
         for(int i=0;i<total_table;i++)
         {
@@ -437,9 +438,8 @@ void delete_row()
 
                             }
                         idx++;
-                        //cout<<"s7"<<"  "<<s7<<endl;
+                        
                     }
-
 
                 }
 
