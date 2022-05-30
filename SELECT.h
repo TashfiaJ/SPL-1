@@ -86,8 +86,6 @@ vector < string > parser(string s)
 void parse(vector <string> list)
 {
 		ll i=0;
-		//if(list[0]!="Select")
-		//	return 0;
 		if(i<list.size())
 		{
 			while(i<list.size())
@@ -101,7 +99,7 @@ void parse(vector <string> list)
 				i++;
 			}	
 		}
-		//return 1;
+		
 }
 
 vector < string > parse_con(string s)
@@ -252,7 +250,7 @@ bool execute_condition ( vector < string > v1 )
 	sign=condsign_column[0];
 	
 	flag_con=eval(val1,val2,sign);		
-	//cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
+	
 	i=1;
 	while(i<cond_column.size())
 	{
@@ -268,7 +266,7 @@ bool execute_condition ( vector < string > v1 )
 		else if(mulcondval[i-1]=="OR")
 			flag_con=flag_con|temp_flag;
 		i++;
-	//	cout<<"flag="<<flag_con<<" "<<val1<<" "<<sign<<" "<<val2<<endl;
+	
 	} 
 	if(flag_con==1)
 		return true;
@@ -709,7 +707,7 @@ void select_info()
                     
                 }
                 for(int j=0; j<col1.size();j++){
-                    //cout<<j<<endl;
+                    
                 if (col1[j] == colHeader)
                 {
                     cout<<colHeader<<'\t'<<'\t'<<'\t';
@@ -717,8 +715,6 @@ void select_info()
                 }
                     
                 }
-                
-                
                 
             }
             
@@ -749,22 +745,6 @@ void select_info()
 					}
             }
             
-            /*for(int i=0;i<storeNumberOfRows;i++)
-            {
-                for(int j=0;j<numOfCol;j++)
-                {
-                    splitFileRead>>colValue;
-                    for(int k =0; k<storeCol1.size(); k++){
-                    if (storeCol1[k]==j)
-                    {
-                        cout<<colValue<<'\t'<<'\t'<<'\t';
-                    }
-                    }
-                    
-                }
-                cout<<endl;
-            }*/
-
             splitFileRead.close();
              //recordFile.close();
             
@@ -772,8 +752,7 @@ void select_info()
      
      if(keyword=="BY")
      {
-         //cout<<"Upside down"<<endl;
-          
+         
         string colValue;
         
         for(ll i=0; i< storeNumberOfRows; i++)
@@ -782,10 +761,9 @@ void select_info()
                 {
                     splitFileRead>>colValue;
                     table[i].push_back(colValue);
-                    //cout<<table[i][k]<<endl;
+                    
                 }
             }
-            //cout<<storeNumberOfRows<<" "<<storeCol1.size()<<endl;
         
         quickSort( 0 , storeNumberOfRows-1);
         
