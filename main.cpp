@@ -18,31 +18,31 @@ int main ()
 
     if(command == "CREATE")
     {
-        string s1, s2, s3;
-        cin >> s1 >> s2 >> s3;
-        createtable(command, s1, s2, s3);
+        string table, table_name, input;
+        cin >> table >> table_name >> input;
+        createtable(command, table, table_name, input);
     }
 
     else if (command == "INSERT")
     {
         insert_table();
     }
-
+    
     else if (command == "UPDATE")
     {
         update();
     }
-
+    
     else if (command == "DELETE")
     {
         delete_row();
     }
-
+    
     else if (command == "SELECT")
     {
         select_info();
     }
-
+    
     else if(command == "SHOW")
     {
         string  table;
@@ -52,4 +52,3 @@ int main ()
 
     else cout << "Command Invalid!\n";
 }
-
