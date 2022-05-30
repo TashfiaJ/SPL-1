@@ -44,8 +44,8 @@ void createHeaderArray2(int p)
 }
 
 /*UPDATE Customers
-SET ContactName=Alfred , City=Frankfurt
-WHERE CustomerID = 1; */
+SET 1 Tashfia
+WHERE CustomerID = 1 ; */
 
 vector < string > parser1(string s)
 {
@@ -166,7 +166,6 @@ vector<string> parse_line1(string s)
 		{
 		    if(a!="" && a!=" "){
 			v.push_back(a);
-			//cout << a << endl;
 			}
 			a="";
 		}
@@ -253,31 +252,6 @@ void extract_condition1()
 
 }
 
-void extract_column()
-{
-	int i=0,k=0;
-	std::vector<string> v;
-	string column_name, sign, column_value;
-	while(i<updates.size())
-	{
-		v=parse_con1(updates[i]);
-		column_name=v[0];
-		sign=v[1];
-		column_value=v[2];
-
-				k=0;
-				while(k<split_table_column1.size())
-				{
-					if(split_table_column1[k]==v[0])
-						updatesValue.push_back({k, column_value});
-					k++;
-				}
-
-		i++;
-	}
-
-}
-
 bool execute_condition1 ( vector < string > v1 )
 {
     int i=0,temp_flag,flag_con;
@@ -341,10 +315,7 @@ void update()
         string input;
         getline(cin, input);
         parse1(parser1(input));
-        //string  where,row,equ;
-        //int rowToUpdate;
-        //cin>>s3>>where>>row>>equ>>rowToUpdate;
-
+        
         ifstream iInfo;
         iInfo.open("FileInformation.txt", ios::in);
         iInfo>>total_table;
@@ -481,7 +452,6 @@ void update()
                         if(conditions1.size()>0)
                             {
                                 display = execute_condition1(v1);
-                                //cout << display << endl;
                                 if(!display)
                                     aFile<<stringArr2[idx]<<endl;
                                 else{
@@ -494,10 +464,7 @@ void update()
 
                             }
                         idx++;
-                        //cout<<"s7"<<"  "<<s7<<endl;
                     }
-
-
                 }
 
             else
