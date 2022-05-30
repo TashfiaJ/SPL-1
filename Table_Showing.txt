@@ -1,3 +1,5 @@
-table	ID	int,	NAME	varchar,	ROLL	int	.
+Student	ID	int,	NAME	varchar,	ROLL	int,	E-MAIL	varchar	.
 
-STUDENT	ID	int,	NAME	varchar,	ROLL	int	.
+Employee	NAME	varchar,	Designation	varchar,	Salary	int,	Address	varchar	.
+
+Customer	Name	varchar,	Contatct_no	int,	Address	varchar,	Postal_Code	varchar,	City	varchar	.
