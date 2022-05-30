@@ -1,11 +1,26 @@
-table
+Student
 
-ID			NAME			ROLL			
+ID			NAME			ROLL			E-MAIL			
 
-1			Tashfia			1223			
-2			Jannath			1201			
+1			Tashfia			1223			tashfia@gmail.com			
+2			Jannath			1240			jannath@gmail.com			
+3			Niha			1201			niha@yahoo.com			
+4			Abid			1200			abid@gmail.com			
 
-STUDENT
+Employee
 
-ID			NAME			ROLL			
+NAME			Designation			Salary			Address			
 
+Hasan			Manager			    25000			Bangladesh			
+Tarek			director			30000			Bangladesh			
+Masud			Executive			30000			Germany			
+Amit			Manager			    24000			Bangladesh			
+
+Customer
+
+Name			Contactno			Address			PostalCode			City			
+
+Abir			019XXXX			    Mexico			0f03			    Mexico			
+Yazir			017XXXX			    Germany			0f05			    Germany			
+Zarin			084XXX			    London			0f64			    London			
+Lisa			094XX			    Dhaka			1200			    Dhaka			
