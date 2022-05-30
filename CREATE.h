@@ -36,8 +36,10 @@ void createtable(string command, string table, string TABLENAME, string str)
     ll total_table;
     ll total_column=0;
     infofile >> s;
-    if(s=="")total_table=0;
-    else total_table=stoll(s);
+    if(s=="")
+        total_table=0;
+    else 
+        total_table=stoll(s);
     infofile.close();
     if(total_table == 0)
     {
@@ -52,14 +54,14 @@ void createtable(string command, string table, string TABLENAME, string str)
 
        if(str=="(")
        {
-           string s1;
-           cin >> str >> s1;
+           string type;
+           cin >> str >> type;
            while(str!=")")
            {
                total_column++;
                database << str << '\t' << '\t' << '\t';
-               tableshowing << str << '\t' << s1 << '\t';
-               cin >> str >> s1;
+               tableshowing << str << '\t' << type << '\t';
+               cin >> str >> type;
            }
        }
        tableshowing << "." << endl;
