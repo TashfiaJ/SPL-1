@@ -24,7 +24,7 @@ void field_value(ll x)
 }
 
 /* INSERT INTO table_name
-   values ( 1, Tash, 1223 ) ;
+   values ( 1 , Tash , 1223 ) ;
 */
 void insert_table ()
 {
