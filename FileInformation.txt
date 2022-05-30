@@ -1,3 +1,4 @@
-2
-table 2 3
-STUDENT 0 3
+3
+Student 4 4
+Employee 4 4
+Customer 4 5
